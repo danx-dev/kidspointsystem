@@ -1,9 +1,25 @@
 FROM golang  
-WORKDIR /work
-ADD . .
-RUN go test ./...
-RUN cd ./cmd
-RUN go build -o /bin/myapp .
-WORKDIR /
-RUN rm -r /work
-CMD ["/bin/myapp"]  
+WORKDIR /build
+
+# Copy and download dependency using go mod
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
+# Copy the code into the container
+COPY . .
+
+# Build the application
+RUN go build ./cmd -o main .
+
+# Move to /dist directory as the place for resulting binary folder
+WORKDIR /dist
+
+# Copy binary from build to main folder
+RUN cp /build/main .
+
+# Export necessary port
+EXPOSE 3000
+
+# Command to run when starting the container
+CMD ["/dist/main"]
