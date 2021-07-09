@@ -28,8 +28,8 @@ func NewServer() {
 	http.HandleFunc("/kids", kidsHandler)
 	http.HandleFunc("/kidsinfo", kidInfoHandler)
 	http.HandleFunc("/kidsassignments", kidAssignmentsHandler)
-	fmt.Println("Server started at port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Server started at port 80")
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
