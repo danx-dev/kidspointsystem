@@ -1,20 +1,14 @@
-name: Docker Image CI
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      runs:
-        using: 'docker'
-        image: 'Dockerfile'
+name: 'kyverno-action'
+description: 'Runs kyverno cli'
+branding:
+  icon: 'command'
+  color: 'red'
+inputs:
+  command:
+    description: 'kyverno command to run'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}
