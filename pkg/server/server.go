@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/danx-dev/kidspointsystem/pkg/db"
@@ -28,8 +29,12 @@ func NewServer() {
 	http.HandleFunc("/kids", kidsHandler)
 	http.HandleFunc("/kidsinfo", kidInfoHandler)
 	http.HandleFunc("/kidsassignments", kidAssignmentsHandler)
-	fmt.Println("Server started at port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if not specified
+	}
+	fmt.Println("Server started at port " + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
