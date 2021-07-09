@@ -14,9 +14,25 @@
     <br/><br/><br/>
     <b-form-group
       id="fieldset-1"
+      label="Is Parrent"
+      label-for="input-1"
+      :invalid-feedback="invalidFeedback"
+    >
+      <b-form-checkbox
+      id="checkbox-1"
+      v-model="isParrent"
+      name="checkbox-1"
+      @input="setParrent"
+    >
+    </b-form-checkbox>
+    </b-form-group>
+    <br/><br/><br/>
+    <b-form-group
+      id="fieldset-1"
       label="Enter your Kid Id"
       label-for="input-1"
       :invalid-feedback="invalidFeedback"
+      v-if="!isParrent"
     >
       <b-form-input id="input-1" v-model="kidId" type="number"></b-form-input>
     </b-form-group>
@@ -43,7 +59,8 @@
     data() {
       return {
         token: '',
-        kidId: 0
+        kidId: 0,
+        isParrent: false
       }
     },
     created: function(){
@@ -54,6 +71,9 @@
         save: function(){
             localStorage.AppToken = this.token;
             localStorage.KidId = this.kidId;
+        },
+        setParrent: function(e){
+          localStorage.IsParrent = e;
         }
     }
   }
