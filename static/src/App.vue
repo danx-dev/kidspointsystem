@@ -10,6 +10,16 @@
   </div>
 </template>
 
+<script>
+export default {
+  created: function(){
+    if(!localStorage.AppToken){
+      this.$router.push('/settings')
+    }
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
